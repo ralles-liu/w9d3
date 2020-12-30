@@ -1,0 +1,23 @@
+ul {
+    flex-wrap: wrap;
+    width: 666px;
+}
+
+li.rows {
+    /* display: block;
+    border: 1px solid black; */
+    display: flex;
+}
+
+li.rows > li {
+    display: block;
+    width: 222px;
+    border: 4px solid black;
+    height: 222px;
+    background-color: gray;
+    
+}
+
+li.rows > li:hover {
+    background-color: yellow;
+}
