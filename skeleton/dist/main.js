@@ -13,9 +13,9 @@
 /*!*************************!*\
   !*** ./src/ttt-view.js ***!
   \*************************/
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("class View {\n  constructor(game, $el) {\n    $el.append(this.setupBoard());\n  }\n\n  bindEvents() {}\n\n  makeMove($square) {}\n\n  setupBoard() {\n    let $grid = $(\"<ul></ul>\");\n    // three li, each one having 3 things in them \n    // let $inner = $(\"<li></li>\");\n    // $inner.addClass(\"rows\")\n    // let $very_inner = $(\"<li></li>\");\n    // $inner.append($very_inner);\n    // $inner.append($very_inner);\n    // $inner.append($very_inner);\n    // $grid.append($(\"<li></li>\"));\n    // $grid.append($(\"<li></li>\"));\n    // $grid.append($(\"<li></li>\"));\n    \n    for (let i = 0; i < 3; i++) {\n      let $row =  $(\"<li></li>\");\n      $row.addClass(\"rows\");\n      for (let i = 0; i < 3; i++) {\n        let $col = $(\"<li></li>\");\n        $row.append($col);\n      }\n      $grid.append($row);\n    }\n\n    return $grid;\n  }\n}\n\nmodule.exports = View;\n\n\n//# sourceURL=webpack:///./src/ttt-view.js?");
+eval("const Game = __webpack_require__(/*! ../../solution/game */ \"../solution/game.js\");\n\nclass View {\n  constructor(game, $el) {\n    $el.append(this.setupBoard());\n    this.game = game;\n    this.$el = $el;\n  }\n\n  bindEvents() {}\n\n  makeMove($square) {\n    // $square.addClass('whatever');\n    // $square.css('background-color', 'red');\n    this.game.prototype.playMove($square.data('pos'))\n    $square.text\n  }\n\n  setupBoard() {\n    let $grid = $(\"<ul></ul>\");\n  \n    for (let i = 0; i < 3; i++) {\n      let $row =  $(\"<li></li>\");\n      $row.addClass(\"rows\");\n      for (let j = 0; j < 3; j++) {\n        let $col = $(\"<li></li>\");\n        $col.data('pos', [i, j])\n        $row.append($col);\n      }\n      $grid.append($row);\n    }\n\n    return $grid;\n  }\n}\n\nmodule.exports = View;\n\n\n//# sourceURL=webpack:///./src/ttt-view.js?");
 
 /***/ }),
 
@@ -79,7 +79,7 @@ eval("\nconst MoveError = function (msg) { this.msg = msg; };\n\n// MoveError re
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-eval("const View = __webpack_require__(/*! ./ttt-view.js */ \"./src/ttt-view.js\"); // require appropriate file\nconst Game = __webpack_require__(/*! ../../solution/game.js */ \"../solution/game.js\"); // require appropriate file\n\n\nconsole.log(\"webpack is working\");\n\n\n\n$(() => {\n  const $el = $(\".ttt\");\n  let board = new View(new Game(), $el); \n  \n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const View = __webpack_require__(/*! ./ttt-view.js */ \"./src/ttt-view.js\"); // require appropriate file\nconst Game = __webpack_require__(/*! ../../solution/game.js */ \"../solution/game.js\"); // require appropriate file\n\n// console.log(\"webpack is working\");\n\n$(() => {\n  const $el = $(\".ttt\");\n  let board = new View(new Game(), $el); \n\n  $($el).on('click', e => {\n    \n    const $square = e.target; \n    View.prototype.makeMove($($square));\n    // $($square).addClass('whatever');\n  })\n});\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
 })();
 
 /******/ })()
